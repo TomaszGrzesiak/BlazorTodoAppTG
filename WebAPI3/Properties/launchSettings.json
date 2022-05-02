@@ -12,7 +12,7 @@
     "WebAPI3": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": false,
+      "launchBrowser": true,
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7228;http://localhost:5228",
       "environmentVariables": {

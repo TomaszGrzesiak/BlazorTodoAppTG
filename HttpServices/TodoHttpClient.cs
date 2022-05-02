@@ -25,7 +25,7 @@ public class TodoHttpClient : ITodoHomeOrDaoOrRep
         return todos;
     }
 
-    public async Task<Todo> GetById(int id)
+    public async Task<Todo> GetByIdAsync(int id)
     {
         using HttpClient httpClient = new();
         HttpResponseMessage responseMessage = await httpClient.GetAsync($"https://localhost:7228/Todos/{id}");
@@ -90,5 +90,23 @@ public class TodoHttpClient : ITodoHomeOrDaoOrRep
         {
             throw new Exception($"Error: {response.StatusCode}, {responseContent}");
         }
+    }
+
+    public async Task<ICollection<Todo>> GetAsync(int? userId, bool? isCompleted)
+    {
+        using HttpClient httpClient = new();
+        HttpResponseMessage responseMessage = await httpClient.GetAsync($"https://localhost:7228/Todos/?userId={userId}&isCompleted={isCompleted}");
+        string content = await responseMessage.Content.ReadAsStringAsync();
+
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception($"Error: {responseMessage.StatusCode}, {content}");
+        }
+
+        ICollection<Todo> todos = JsonSerializer.Deserialize<ICollection<Todo>>(content, new JsonSerializerOptions()
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        return todos;
     }
 }

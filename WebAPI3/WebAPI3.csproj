@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DomainOrEntities\DomainOrEntities.csproj" />
+      <ProjectReference Include="..\EfcData\EfcData.csproj" />
       <ProjectReference Include="..\FileData\FileData.csproj" />
     </ItemGroup>
 

@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI3", "WebAPI3\WebAPI3.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpServices", "HttpServices\HttpServices.csproj", "{3A0B9E2E-A2B1-4A0C-99A8-5EAD6FD07384}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfcData", "EfcData\EfcData.csproj", "{E2CBE14B-4838-4B92-8ADB-10785770103C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{3A0B9E2E-A2B1-4A0C-99A8-5EAD6FD07384}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A0B9E2E-A2B1-4A0C-99A8-5EAD6FD07384}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A0B9E2E-A2B1-4A0C-99A8-5EAD6FD07384}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2CBE14B-4838-4B92-8ADB-10785770103C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2CBE14B-4838-4B92-8ADB-10785770103C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2CBE14B-4838-4B92-8ADB-10785770103C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2CBE14B-4838-4B92-8ADB-10785770103C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

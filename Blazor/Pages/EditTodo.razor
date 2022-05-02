@@ -48,7 +48,7 @@
     
     protected override async Task OnInitializedAsync()
     {
-        todoToEdit = await todoHomeOrDaoOrRep.GetById(Id);
+        todoToEdit = await todoHomeOrDaoOrRep.GetByIdAsync(Id);
     }
 
     private async Task Save()

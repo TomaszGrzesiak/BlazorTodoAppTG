@@ -18,7 +18,7 @@ public class TodoFileDao : ITodoHomeOrDaoOrRep
         return todos;
     }
 
-    public async Task<Todo> GetById(int id)
+    public async Task<Todo> GetByIdAsync(int id)
     {
         // return first "toodo" in the collection, which id equals to the "id" from arguments of this method  
         return fileContext.Todos.First(t => t.Id == id);
@@ -55,5 +55,10 @@ public class TodoFileDao : ITodoHomeOrDaoOrRep
         // fileContext.Todos.Remove(todoToUpdate);
         // fileContext.Todos.Add(todo);
         // fileContext.SaveChanges();
+    }
+
+    public Task<ICollection<Todo>> GetAsync(int? userId, bool? isCompleted)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -124,13 +124,13 @@ else
 
 @code {
     string errorLabel = "";
-    
+
     // filtering feature
     private ICollection<Todo> allTodos, todosToShow;
     private int? ownerIdFilter;
     private bool? isCompletedFilter;
     private bool doShowFilters;
-    
+
     // popup Edit a todo
     private bool showModal;
     private string editedTitle = String.Empty;
@@ -152,8 +152,8 @@ else
         errorLabel = "";
         try
         {
-            // var todoToRemove = todos.First(todo => todo.Id == id);
-            // todos.Remove(todoToRemove);
+    // var todoToRemove = todos.First(todo => todo.Id == id);
+    // todos.Remove(todoToRemove);
             await TodoHomeOrDaoOrRep.DeleteAsync(id);
             todosToShow = await TodoHomeOrDaoOrRep.GetAsync();
         }
@@ -162,10 +162,10 @@ else
             errorLabel = e.Message;
         }
     }
-    
+
     private async Task ToggleStatus(bool status, Todo todo)
     {
-        errorLabel = "";            
+        errorLabel = "";
         todo.IsCompleted = status;
         try
         {
@@ -176,7 +176,7 @@ else
             errorLabel = e.Message;
         }
     }
-    
+
     private void OpenCloseFilters()
     {
         doShowFilters = !doShowFilters;
@@ -187,30 +187,30 @@ else
             todosToShow = allTodos;
         }
     }
-    
+
     private void UpdateOwnerFilter(ChangeEventArgs args)
     {
-        string value = (string)args.Value;
+        string value = (string) args.Value;
         if (string.IsNullOrEmpty(value))
         {
             ownerIdFilter = null;
             ApplyFilters();
             return;
         }
-        
+
         int idFilter = int.Parse(value);
         if (idFilter < 0)
         {
             return;
         }
-    
+
         ownerIdFilter = idFilter;
         ApplyFilters();
     }
-    
+
     private void UpdateCompletedStatusFilter(ChangeEventArgs args)
     {
-        string value = (string)args.Value;
+        string value = (string) args.Value;
 
         try
         {
@@ -223,17 +223,16 @@ else
         ApplyFilters();
     }
     
-    private void ApplyFilters()
+    private async void ApplyFilters()
     {
-        todosToShow = allTodos;
-        if (isCompletedFilter != null)
-        {
-            todosToShow = todosToShow.Where(todo => todo.IsCompleted == isCompletedFilter).ToList();
-        }
-        if (ownerIdFilter != null)
-        {
-            todosToShow = todosToShow.Where(todo => todo.OwnerId == ownerIdFilter).ToList();
-        }
+        todosToShow =  await TodoHomeOrDaoOrRep.GetAsync(ownerIdFilter, isCompletedFilter);
+    
+        //the lines below have been replaced by the one above
+        // todosToShow = allTodos;
+        // if (isCompletedFilter != null) todosToShow = todosToShow.Where(todo => todo.IsCompleted == isCompletedFilter).ToList();
+        // if (ownerIdFilter != null) todosToShow = todosToShow.Where(todo => todo.OwnerId == ownerIdFilter).ToList();
+        
+        
     }
     
     private void Edit(int itemId)

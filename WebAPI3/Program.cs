@@ -1,5 +1,10 @@
 using DomainOrEntities.ContractsOrInterfaces;
-using FileData.DataAccess;
+using EfcData;
+
+using (TodoContext ctx = new())
+{
+    ctx.Seed();
+}
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +14,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<ITodoHomeOrDaoOrRep, TodoFileDao>();
-builder.Services.AddScoped<FileContext>();
+builder.Services.AddScoped<ITodoHomeOrDaoOrRep, TodoSqliteDAO>();
+builder.Services.AddDbContext<TodoContext>();
 
 var app = builder.Build();
 
