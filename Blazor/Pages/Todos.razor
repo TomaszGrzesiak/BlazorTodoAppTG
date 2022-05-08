@@ -22,7 +22,7 @@
                 <div>
                     <input type="number" 
                     class="owneridfield" 
-                    @oninput="args => UpdateOwnerFilter(args)" 
+                    @oninput="async args => await UpdateOwnerFilter(args)" 
                     min="0" value="0"/>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 </div>
                 <div>
                     <select class="completedstatusfield" 
-                    @onchange="args => UpdateCompletedStatusFilter(args)">
+                    @onchange="async args => await UpdateCompletedStatusFilter(args)">
                         <option value="all">all</option>
                         <option value="true">true</option>
                         <option value="false">false</option>
@@ -144,7 +144,7 @@ else
         todosToShow = allTodos;
         OpenCloseFilters();
         ownerIdFilter = 0;
-        ApplyFilters();
+        await ApplyFilters();
     }
 
     private async Task RemoveTodo(int id)
@@ -187,14 +187,16 @@ else
             todosToShow = allTodos;
         }
     }
-
-    private void UpdateOwnerFilter(ChangeEventArgs args)
+    
+    // async, because it calls ApplyFilters() method, which is async too. If we didn't add "async" here,
+    // then there occurs a data mismatch when fetching it from the database by calling ApplyFilters();
+    private async Task UpdateOwnerFilter(ChangeEventArgs args)
     {
-        string value = (string) args.Value;
+        string? value = (string) args.Value!;
         if (string.IsNullOrEmpty(value))
         {
             ownerIdFilter = null;
-            ApplyFilters();
+            await ApplyFilters();
             return;
         }
 
@@ -205,10 +207,10 @@ else
         }
 
         ownerIdFilter = idFilter;
-        ApplyFilters();
+        await ApplyFilters();
     }
 
-    private void UpdateCompletedStatusFilter(ChangeEventArgs args)
+    private async Task UpdateCompletedStatusFilter(ChangeEventArgs args)
     {
         string value = (string) args.Value;
 
@@ -220,10 +222,10 @@ else
         {
             isCompletedFilter = null;
         }
-        ApplyFilters();
+        await ApplyFilters();
     }
     
-    private async void ApplyFilters()
+    private async Task ApplyFilters()
     {
         todosToShow =  await TodoHomeOrDaoOrRep.GetAsync(ownerIdFilter, isCompletedFilter);
     
